@@ -1,0 +1,19 @@
+# FaceSwap Pro (YuNet)
+
+Se reemplazó la detección por Haar Cascade por YuNet (FaceDetectorYN) de OpenCV para mejorar precisión y estabilidad.
+
+Cambios principales:
+- Nuevo módulo js/detector.js que carga el modelo ONNX y expone funciones de detección.
+- Reimplementación de flujo en js/main.js para usar YuNet.
+- Eliminación de MediaPipe Face Mesh como dependencia (si estaba presente).
+- Nueva carpeta /models para añadir el archivo ONNX: face_detection_yunet_2023mar.onnx
+
+Instrucciones:
+1. Descarga `face_detection_yunet_2023mar.onnx` y colócalo en la carpeta `models/` en la raíz del repo.
+2. Despliega en Vercel (sitio estático). Asegúrate de que `models/face_detection_yunet_2023mar.onnx` sea accesible públicamente.
+3. Abre la app; OpenCV.js intentará cargar el modelo al iniciarse.
+
+Notas sobre compatibilidad:
+- La API FaceDetectorYN requiere una compilación de OpenCV.js que incluya el módulo `face` y soporte para FaceDetectorYN. Si tu build de OpenCV.js no contiene esa API, el inicializador mostrará un error claro.
+- Si encuentras errores: revisa la consola del navegador y el archivo `statusBar` en la UI para mensajes.
+

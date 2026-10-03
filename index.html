@@ -1,16 +1,17 @@
+<!-- index.html updated: removed MediaPipe and keep OpenCV.js + note for model -->
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>FaceSwap Pro (sin IA) — Cliente</title>
+    <title>FaceSwap Pro (YuNet) — Cliente</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="app">
       <header class="header">
-        <h1>FaceSwap Pro (sin IA)</h1>
-        <p class="tag">Client-side • OpenCV.js • MediaPipe Face Mesh • Offline</p>
+        <h1>FaceSwap Pro (YuNet)</h1>
+        <p class="tag">Client-side • OpenCV.js (YuNet) • Offline</p>
       </header>
 
       <main class="main">
@@ -68,14 +69,12 @@
       </main>
 
       <footer class="footer">
-        <small>Hecho con OpenCV.js y MediaPipe Face Mesh — Todo en el navegador. No se suben imágenes.</small>
+        <small>Hecho con OpenCV.js YuNet — Todo en el navegador. No se suben imágenes.</small>
       </footer>
     </div>
 
-    <!-- MediaPipe FaceMesh -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
     <!-- OpenCV.js (async) -->
-    <script async src="https://docs.opencv.org/4.5.5/opencv.js" onload="window.onOpenCvReady && window.onOpenCvReady()"></script>
+    <script async src="https://docs.opencv.org/4.7.0/opencv.js" onload="window.onOpenCvReady && window.onOpenCvReady()"></script>
     <!-- App modules -->
     <script type="module" src="/js/main.js"></script>
   </body>
