@@ -1,65 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FaceSwap Clásico</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FaceSwap Pro (sin IA) — Cliente</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="app">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">FaceSwap sin IA</p>
-          <h1>Detección + clonación clásica</h1>
-        </div>
+      <header class="header">
+        <h1>FaceSwap Pro (sin IA)</h1>
+        <p class="tag">Client-side • OpenCV.js • MediaPipe Face Mesh • Offline</p>
       </header>
 
-      <main class="panel">
-        <section class="upload-grid">
+      <main class="main">
+        <section class="left">
           <div class="card">
-            <label for="sourceInput">Cara fuente</label>
+            <h2>Entradas</h2>
+            <div class="drop-area" id="dropSource">Arrastra o pega (Ctrl+V) imagen fuente</div>
             <input id="sourceInput" type="file" accept="image/*" />
-            <canvas id="sourceCanvas"></canvas>
-            <div class="transform-controls">
-              <label>Escala <input id="scaleRange" type="range" min="0.5" max="2" step="0.01" value="1" /></label>
-              <label>Rotación <input id="rotateRange" type="range" min="-180" max="180" step="1" value="0" /></label>
+            <canvas id="sourcePreview" class="preview"></canvas>
+          </div>
+
+          <div class="card">
+            <h2>Destino</h2>
+            <div class="drop-area" id="dropTarget">Arrastra o pega (Ctrl+V) imagen destino</div>
+            <input id="targetInput" type="file" accept="image/*" />
+            <canvas id="targetPreview" class="preview"></canvas>
+          </div>
+
+          <div class="card small">
+            <h3>Controles rápidos</h3>
+            <label>Modo múltiple <input id="multiToggle" type="checkbox" /></label>
+            <label>Auto-align <input id="autoAlign" type="checkbox" checked /></label>
+            <label>Feather <input id="featherRange" type="range" min="0" max="50" value="12" /></label>
+            <label>Blend <input id="blendRange" type="range" min="0" max="1" step="0.01" value="1" /></label>
+            <div class="buttons">
+              <button id="swapBtn" class="primary">Aplicar FaceSwap</button>
+              <button id="undoBtn">Deshacer</button>
+              <button id="redoBtn">Rehacer</button>
+              <select id="exportFormat"><option value="png">PNG</option><option value="jpeg">JPG</option><option value="webp">WebP</option></select>
+              <button id="downloadBtn" class="secondary">Descargar</button>
             </div>
           </div>
+        </section>
 
+        <section class="right">
           <div class="card">
-            <label for="targetInput">Cara destino</label>
-            <input id="targetInput" type="file" accept="image/*" />
-            <canvas id="targetCanvas"></canvas>
+            <h2>Resultado</h2>
+            <div class="result-area">
+              <canvas id="resultCanvas" class="result"></canvas>
+              <div id="statusBar" class="status">Listo</div>
+            </div>
+
+            <div class="compare">
+              <label><input id="compareToggle" type="checkbox" /> Mostrar antes/después (slider)</label>
+              <div id="compareWrap" class="compare-wrap" aria-hidden="true">
+                <canvas id="compareBefore"></canvas>
+                <canvas id="compareAfter"></canvas>
+                <input id="compareSlider" type="range" min="0" max="100" value="50" />
+              </div>
+            </div>
+
+            <div class="thumbnails" id="thumbs"></div>
           </div>
-        </section>
-
-        <section class="controls">
-          <button id="swapBtn" class="primary">Aplicar FaceSwap</button>
-          <button id="resetBtn" class="secondary">Reset</button>
-          <button id="downloadBtn" class="primary" style="background:#f59e0b">Descargar resultado</button>
-        </section>
-
-        <section class="result-panel">
-          <h2>Resultado</h2>
-          <div class="result-wrap">
-            <canvas id="resultCanvas"></canvas>
-            <div id="status" class="status muted">Esperando imágenes...</div>
-          </div>
-        </section>
-
-        <section class="notes">
-          <h3>Consejos</h3>
-          <ul>
-            <li>Usa fotos frontales y bien iluminadas para mejores resultados.</li>
-            <li>Ajusta escala y rotación de la cara fuente si no encaja perfectamente.</li>
-            <li>Si no detecta caras, prueba con otra imagen o recorta la cara manualmente antes de subir.</li>
-          </ul>
         </section>
       </main>
+
+      <footer class="footer">
+        <small>Hecho con OpenCV.js y MediaPipe Face Mesh — Todo en el navegador. No se suben imágenes.</small>
+      </footer>
     </div>
 
-    <script async src="https://docs.opencv.org/4.5.5/opencv.js" onload="onOpenCvReady()"></script>
-    <script src="app.js"></script>
+    <!-- MediaPipe FaceMesh -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+    <!-- OpenCV.js (async) -->
+    <script async src="https://docs.opencv.org/4.5.5/opencv.js" onload="window.onOpenCvReady && window.onOpenCvReady()"></script>
+    <!-- App modules -->
+    <script type="module" src="/js/main.js"></script>
   </body>
 </html>
