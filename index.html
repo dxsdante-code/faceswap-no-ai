@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FaceSwap Clásico</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">FaceSwap sin IA</p>
+          <h1>Detección + clonación clásica</h1>
+        </div>
+      </header>
+
+      <main class="panel">
+        <section class="upload-grid">
+          <div class="card">
+            <label for="sourceInput">Cara fuente</label>
+            <input id="sourceInput" type="file" accept="image/*" />
+            <canvas id="sourceCanvas"></canvas>
+            <div class="transform-controls">
+              <label>Escala <input id="scaleRange" type="range" min="0.5" max="2" step="0.01" value="1" /></label>
+              <label>Rotación <input id="rotateRange" type="range" min="-180" max="180" step="1" value="0" /></label>
+            </div>
+          </div>
+
+          <div class="card">
+            <label for="targetInput">Cara destino</label>
+            <input id="targetInput" type="file" accept="image/*" />
+            <canvas id="targetCanvas"></canvas>
+          </div>
+        </section>
+
+        <section class="controls">
+          <button id="swapBtn" class="primary">Aplicar FaceSwap</button>
+          <button id="resetBtn" class="secondary">Reset</button>
+          <button id="downloadBtn" class="primary" style="background:#f59e0b">Descargar resultado</button>
+        </section>
+
+        <section class="result-panel">
+          <h2>Resultado</h2>
+          <div class="result-wrap">
+            <canvas id="resultCanvas"></canvas>
+            <div id="status" class="status muted">Esperando imágenes...</div>
+          </div>
+        </section>
+
+        <section class="notes">
+          <h3>Consejos</h3>
+          <ul>
+            <li>Usa fotos frontales y bien iluminadas para mejores resultados.</li>
+            <li>Ajusta escala y rotación de la cara fuente si no encaja perfectamente.</li>
+            <li>Si no detecta caras, prueba con otra imagen o recorta la cara manualmente antes de subir.</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script async src="https://docs.opencv.org/4.5.5/opencv.js" onload="onOpenCvReady()"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
